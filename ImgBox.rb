@@ -34,7 +34,9 @@ class Img < ImgBox
   end
 
   def render
-    "<img width=#{@w.round} height=#{@h.round} src=\"#{@src}\">"
+    "<a href=\"#{@src}\" target=_blank>"\
+      "<img width=#{@w.round} height=#{@h.round} src=\"#{@src}\">"\
+    "</a>"
   end
 end
 
