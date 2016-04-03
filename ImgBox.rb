@@ -6,6 +6,7 @@ class ImgBox
   end
 
   def scale(k)
+    return self if k == 1
     @w *= k
     @h *= k
     self
@@ -33,7 +34,7 @@ class Img < ImgBox
   end
 
   def render
-    "<img width=#{@w.to_i} height=#{@h.to_i} src=\"#{@src}\">"
+    "<img width=#{@w.round} height=#{@h.round} src=\"#{@src}\">"
   end
 end
 
@@ -45,10 +46,10 @@ class Div < ImgBox
     case @direction
     when :column
       @w = [fst.w, snd.w].min
-      @h = fst.scale(@w.to_f / fst.w).h + snd.scale(@w.to_f / snd.w).h
+      @h = fst.scale(@w.fdiv fst.w).h + snd.scale(@w.fdiv snd.w).h
     when :row
       @h = [fst.h, snd.h].min
-      @w = fst.scale(@h.to_f / fst.h).w + snd.scale(@h.to_f / snd.h).w
+      @w = fst.scale(@h.fdiv fst.h).w + snd.scale(@h.fdiv snd.h).w
     end
   end
 
@@ -59,11 +60,10 @@ class Div < ImgBox
   end
 
   def scale(k)
-    @w *= k
-    @h *= k
+    return self if k == 1
     @fst.scale(k)
     @snd.scale(k)
-    self
+    super
   end
 end
 
