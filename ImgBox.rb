@@ -6,7 +6,6 @@ class ImgBox
   end
 
   def scale(k)
-    return self if k == 1
     @w *= k
     @h *= k
     self
@@ -48,10 +47,10 @@ class Div < ImgBox
     case @direction
     when :column
       @w = [fst.w, snd.w].min
-      @h = fst.scale(@w.fdiv fst.w).h + snd.scale(@w.fdiv snd.w).h
+      @h = fst.scale(@w.quo fst.w).h + snd.scale(@w.quo snd.w).h
     when :row
       @h = [fst.h, snd.h].min
-      @w = fst.scale(@h.fdiv fst.h).w + snd.scale(@h.fdiv snd.h).w
+      @w = fst.scale(@h.quo fst.h).w + snd.scale(@h.quo snd.h).w
     end
   end
 
