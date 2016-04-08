@@ -1,0 +1,39 @@
+<% require './ImgBox.rb' %>
+<% require './imgs-list.rb' %>
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Demo page</title>
+    <style>
+      * {
+        margin:  0px !important;
+        padding: 0px !important;
+        border: none !important;
+      }
+      html, body { max-height: 100vh; }
+    </style>
+    <script>
+      function scale_down() {
+        var div = document.querySelector('body > div');
+        var divw = div.scrollWidth;
+        var divh = div.scrollHeight;
+        var winw = document.documentElement.clientWidth;
+        var winh = document.documentElement.clientHeight;
+        var scale = Math.min(winw / divw, winh / divh);
+        if (scale >= 1) return;
+        document.body.style.transformOrigin = "top left";
+        document.body.style.transform = "scale(" + scale + ")";
+      }
+      window.onload = () => {
+        window.onresize = scale_down;
+        scale_down();
+      };
+    </script>
+  </head>
+  <body>
+    <%= ImgBox.make_tile($imgs) %>
+  </body>
+</html>
+
