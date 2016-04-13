@@ -33,7 +33,7 @@
     </script>
   </head>
   <body>
-    <%= ImgBox.make_tile($imgs) %>
+    <%= ImgBox.make_tile($imgs.sample(rand(3 .. $imgs.size))) %>
   </body>
 </html>
 
