@@ -24,6 +24,24 @@ class ImgBox
     end
     imgs.first.render
   end
+
+  def self.make_gallery(imgs, width = 512)
+    imgs = imgs.map{ |i| Img.new(i[:w], i[:h], i[:src]) }
+    results = []
+    while imgs.size > 1 do
+      i1, i2 = imgs.combination(2).min_by{ |i1, i2| i1.diff(i2) }
+      imgs -= [i1, i2]
+      i = i1.merge(i2)
+      if i.w >= width
+        results.push i
+      else
+        imgs.push i
+      end
+    end
+    results.concat imgs
+    results.each{ |i| i.scale(width.quo i.w) }
+    results.map(&:render).join
+  end
 end
 
 class Img < ImgBox

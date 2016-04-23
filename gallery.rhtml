@@ -1,0 +1,29 @@
+<% require './ImgBox.rb' %>
+<% require './imgs-list.rb' %>
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Demo page</title>
+    <style>
+      * {
+        margin:  0px !important;
+        padding: 0px !important;
+        border: none !important;
+      }
+      img { display: block; }
+      body {
+        display: flex;
+        justify-content: center;
+        background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <%= ImgBox.make_gallery($imgs.sample(rand(3 .. $imgs.size))) %>
+    </center>
+  </body>
+</html>
+
